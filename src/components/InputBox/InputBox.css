@@ -1,0 +1,49 @@
+.input-box__label{
+  display: block;
+  width: 100%;
+  margin: 0 0 10px;
+  font-size: 10px;
+  line-height: 12px;
+  color: var(--color-dim);
+}
+
+.input-box__input {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  padding: 15px;
+  border: none;
+  border-radius: 8px;
+  background: var(--color-darker);
+  color: var(--color-text);
+}
+
+.input-box__input.error:not(:focus) {
+  color: var(--color-notable);
+}
+
+.input-box__error {
+  display: block;
+  width: 100%;
+  min-height: 10px;
+  margin: 10px 0 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: var(--color-notable);
+  font-size: 10px;
+  line-height: 10px;
+}
+
+.input-box__input:focus {
+  outline: none;
+  box-shadow: 2px 2px 5px var(--color-elements);
+}
+
+.input-box__input.error:focus {
+  box-shadow: 2px 2px 5px var(--color-notable);
+}

@@ -1,0 +1,33 @@
+.account-link-union {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+
+.account-link-union__text-link {
+  display: block;
+  color: var(--color-text);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  padding: 2px 0;
+}
+
+.account-link-union__text-link.active {
+  border-bottom: 2px solid var(--color-text);
+}
+
+.account-link-union__text-link.active:hover {
+  border-bottom-color: var(--color-elements);
+}
+
+.account-link-union__icon-link {
+  width: 30px;
+  height: 30px;
+  background: var(--color-icon) url(./account-icon.svg) no-repeat center / 11px 11px;
+  border-radius: 6px;
+}
+
+.account__account-icon:focus-visible {
+  outline: none;
+}

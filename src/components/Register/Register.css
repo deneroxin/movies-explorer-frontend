@@ -1,0 +1,17 @@
+.register {
+  box-sizing: border-box;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: 100%;
+  justify-items: center;
+  align-items: center;
+  padding: 30px;
+}
+
+
+@media screen and (max-width: 544px) {
+  .register {
+    padding-top: 56px;
+  }
+}

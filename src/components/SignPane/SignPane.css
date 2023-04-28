@@ -1,0 +1,108 @@
+.sign-pane {
+  width: 100%;
+  max-width: 396px;
+}
+
+.sign-pane__logo {
+  display: block;
+}
+
+.sign-pane__form {
+  display: flex;
+  flex-direction: column;
+}
+
+.sign-pane__title {
+  margin: 40px 0;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
+}
+
+.sign-pane__submit {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 69px 0 0;
+  padding: 13px;
+  border: none;
+  border-radius: 3px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  color: var(--color-text);
+  background: var(--color-submit);
+}
+
+.sign-pane__submit.extra-space {
+  margin-top: calc(179px - 22px);
+}
+
+.sign-pane__submit:disabled {
+  background: var(--color-pale);
+}
+
+.sign-pane__server-response {
+  display: block;
+  margin: 15px 0 0;
+  font-weight: 500px;
+  font-size: 14px;
+  line-height: 16px;
+  color: var(--color-notable);
+  text-align: center;
+}
+
+.sign-pane__nav {
+  margin: 16px 0 0;
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+
+.sign-pane__prompt, .sign-pane__link {
+  font-size: 14px;
+  line-height: 17px;
+}
+
+.sign-pane__prompt {
+  color: var(--color-dim);
+}
+
+.sign-pane__link {
+  color: var(--color-submit);
+}
+
+
+@media screen and (max-width: 544px) {
+  .sign-pane {
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto 1fr;
+    grid-auto-rows: auto;
+  }
+
+  .sign-pane__logo {
+    margin: 0 auto;
+  }
+
+  .sign-pane__title {
+    margin: 50px auto 80px;
+    text-align: center;
+  }
+
+  .sign-pane__submit {
+    margin-top: auto;
+    font-size: 12px;
+    line-height: 15px;
+  }
+
+  .sign-pane__nav {
+    margin-top: 14px;
+  }
+
+  .sign-pane__prompt, .sign-pane__link {
+    font-size: 13px;
+    line-height: 15px;
+  }
+}
