@@ -81,7 +81,7 @@ export function useValidation(validationObject) {
     const isGlobalInvalid = Boolean(validator.getErrorText()._global);
     setShowError((oldState) => ({ ...oldState, [name]: isInvalid }));
     didLoseFocus[name] = true;
-    if (Object.values(didLoseFocus).reduce((acc, val) => (acc && val), true))
+    if (Object.values(didLoseFocus).every(Boolean))
       setShowError((oldState) => ({ ...oldState, _global: isGlobalInvalid }));
   }
 
