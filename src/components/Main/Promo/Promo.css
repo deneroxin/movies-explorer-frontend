@@ -22,7 +22,7 @@
 .promo__ornament {
   width: 722px;
   height: 244px;
-  background: url(./promo__ornament.svg) no-repeat center / contain;
+  background: url(../../../images/promo__ornament.svg) no-repeat center / contain;
   justify-self: end;
 }
 

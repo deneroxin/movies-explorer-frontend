@@ -13,6 +13,8 @@
   column-gap: 24px;
   row-gap: 37px;
   padding: 70px 0 10px;
+  list-style: none;
+  margin: 0;
 }
 
 .movies-card-list__more-button {

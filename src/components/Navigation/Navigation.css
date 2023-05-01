@@ -60,7 +60,7 @@
   width: 30px;
   height: 30px;
   border: none;
-  background: url(./navigation__close-icon.svg) no-repeat center / contain;
+  background: url(../../images/navigation__close-icon.svg) no-repeat center / contain;
 }
 
 

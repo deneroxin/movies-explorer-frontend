@@ -5,12 +5,12 @@ import './NavTab.css';
 export default function NavTab() {
 
   return (
-    <section className="nav-tab">
+    <header className="nav-tab">
       <div className="nav-tab__logo site-logo" />
       <nav className="nav-tab__links">
         <Link className="nav-tab__signup interactive" to="/signup">Регистрация</Link>
-        <Link className="nav-tab__signin interactive_type_2" to="/signin">Войти</Link>
+        <Link className="nav-tab__signin interactive-type-2" to="/signin">Войти</Link>
       </nav>
-    </section>
+    </header>
   );
 }

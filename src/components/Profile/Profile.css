@@ -7,7 +7,7 @@
 }
 
 .profile__container {
-  margin-top: 4px;
+  margin: 4px auto 0;
   justify-self: center;
   box-sizing: border-box;
   padding: 0 30px;
@@ -124,7 +124,7 @@
 
 @media screen and (max-width: 1024px) {
   .profile__container {
-    margin: 0 0 calc(269px - 236px);
+    margin: 0 auto calc(269px - 236px);
   }
 
   .profile__title {
@@ -142,8 +142,15 @@
     align-items: stretch;
   }
 
+  .profile__main {
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 100%;
+    align-items: stretch;
+  }
+
   .profile__container {
-    margin: 70px 0 40px;
+    margin: 70px auto 40px;
   }
 
   .profile__title {

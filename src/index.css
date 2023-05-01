@@ -17,6 +17,8 @@ body {
   --color-submit: #4285f4;
   --color-elements: #3ddc84;
   --color-promo: #073042;
+  --color-checkbox: #343434;
+  --color-checkbox-handle: var(--color-pale);
   --t: ((100vw - 768px) / (1280 - 768));
   background: var(--color-background);
   font-family: Inter, Arial, sans-serif;
@@ -33,12 +35,12 @@ body {
   }
 }
 
-.interactive:not(:disabled), .interactive_type_2:not(:disabled) {
+.interactive:not(:disabled), .interactive-type-2:not(:disabled) {
   cursor: url(./images/interactive-cursor.png) 7 0, pointer;
   text-decoration: none;
 }
 
-.interactive:focus-visible, .interactive_type_2:focus-visible {
+.interactive:focus-visible, .interactive-type-2:focus-visible {
   outline-offset: 2px;
   outline: 2px dashed var(--color-pale);
 }
@@ -53,11 +55,11 @@ body {
 }
 
 
-.interactive_type_2:not(:disabled) {
+.interactive-type-2:not(:disabled) {
   transition: filter .3s ease;
 }
 
-.interactive_type_2:not(:disabled):hover {
+.interactive-type-2:not(:disabled):hover {
   filter: brightness(130%);
 }
 

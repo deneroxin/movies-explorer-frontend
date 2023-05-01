@@ -28,8 +28,9 @@ export default function SearchForm() {
         <input type="text" className="search-form__input" placeholder="Фильм"
           value={inputContent} onChange={handleInputChange}
         />
-        <button type="submit" className="search-form__submit interactive_type_2"
-          aria-label="Начать поиск" />
+        <button type="submit"
+          className={`search-form__submit${inputContent ? ' interactive-type-2' : ''}`}
+          aria-label="Начать поиск" disabled={!inputContent} />
       </div>
       <FilterCheckbox className="search-form__filter-checkbox"
         id="filter-checkbox" checked={onlyShort}

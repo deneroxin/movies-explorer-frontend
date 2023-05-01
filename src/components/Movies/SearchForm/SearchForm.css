@@ -52,7 +52,11 @@
   padding: 0;
   width: 34px;
   height: 34px;
-  background: var(--color-submit) url(./search-form__submit-icon.svg) no-repeat center / 5px 12px;
+  background: var(--color-submit) url(../../../images/search-form__submit-icon.svg) no-repeat center / 5px 12px;
+}
+
+.search-form__submit:disabled {
+  background-color: var(--color-dim);
 }
 
 .search-form__submit:focus-visible {

@@ -8,7 +8,7 @@ export default function Navigation({ isActive, onClose }) {
   function handlePopupClick(evt) {
     if (evt.target === evt.currentTarget
       || evt.target.classList.contains('interactive')
-      || evt.target.classList.contains('interactive_type_2')) onClose();
+      || evt.target.classList.contains('interactive-type-2')) onClose();
   }
 
   return (

@@ -10,8 +10,10 @@ export default function Movies() {
   return (
     <div className="movies">
       <Header />
-      <SearchForm />
-      <MoviesCardList {...{moviesData}} areSaved={false} />
+      <main>
+        <SearchForm />
+        <MoviesCardList {...{moviesData}} areSaved={false} />
+      </main>
       <Footer />
     </div>
   );

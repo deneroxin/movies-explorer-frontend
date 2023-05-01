@@ -9,8 +9,8 @@ export default function Header() {
   const { openNav } = React.useContext(GlobalHandlersContext);
 
   return (
-    <section className="header">
-      <Link className="header__logo site-logo interactive_type_2" to="/" />
+    <header className="header">
+      <Link className="header__logo site-logo interactive-type-2" to="/" />
       <nav className="header__nav">
         <NavLink className="header__link interactive" to="/movies">
           Фильмы
@@ -22,6 +22,6 @@ export default function Header() {
       </nav>
       <button className="header__burger interactive"
         onClick={openNav} aria-label="Открыть меню" />
-    </section>
+    </header>
   );
 }

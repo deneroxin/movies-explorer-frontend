@@ -8,7 +8,7 @@ export default function AccountLinkUnion({ className }) {
       <NavLink className="account-link-union__text-link interactive" to="/profile">
         Аккаунт
       </NavLink>
-      <Link className="account-link-union__icon-link interactive_type_2"
+      <Link className="account-link-union__icon-link interactive-type-2"
         tabIndex="-1" to="/profile"
       />
     </div>

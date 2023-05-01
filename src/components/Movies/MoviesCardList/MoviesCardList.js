@@ -20,11 +20,11 @@ export default function MoviesCardList({ moviesData, areSaved }) {
 
   return (
     <div className="movies-card-list">
-      <div className="movies-card-list__container" ref={containerElement}>
+      <ul className="movies-card-list__container" ref={containerElement}>
         {moviesData.slice(0, numCards).map((card, i) =>
           (<MoviesCard key={i} hasLike={!areSaved} cardData={card}/>))}
-      </div>
-      {!areSaved && <button className="movies-card-list__more-button interactive_type_2"
+      </ul>
+      {!areSaved && <button className="movies-card-list__more-button interactive-type-2"
         onClick={handleMoreClick}>Ещё</button>}
     </div>
   );

@@ -18,7 +18,7 @@
   width: 36px;
   height: 20px;
   border-radius: 20px;
-  background: var(--color-elements);
+  background-color: var(--color-checkbox);
 }
 
 .filter-checkbox__switch::before {
@@ -29,11 +29,16 @@
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  background: var(--color-text);
+  background-color: var(--color-checkbox-handle);
   transition: transform .1s ease-out;
 }
 
+.filter-checkbox__input:checked + .filter-checkbox__switch {
+  background-color: var(--color-elements);
+}
+
 .filter-checkbox__input:checked + .filter-checkbox__switch::before {
+  background-color: var(--color-text);
   transform: translateX(16px);
 }
 

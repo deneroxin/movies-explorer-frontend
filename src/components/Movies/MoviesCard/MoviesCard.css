@@ -39,15 +39,15 @@
 }
 
 .movies-card__like {
-  background: url(./movies-card__like.svg) no-repeat center / 14px 12px;
+  background: url(../../../images/movies-card__like.svg) no-repeat center / 14px 12px;
 }
 
 .movies-card__remove {
-  background: url(./movies-card__remove.svg) no-repeat center / 6.84px 6.72px;
+  background: url(../../../images/movies-card__remove.svg) no-repeat center / 6.84px 6.72px;
 }
 
 .movies-card__like.active {
-  background-image: url(./movies-card__like_active.svg);
+  background-image: url(../../../images/movies-card__like_active.svg);
 }
 
 .movies-card__duration {

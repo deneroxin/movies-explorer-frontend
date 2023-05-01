@@ -10,7 +10,7 @@ export default function FilterCheckbox(
         className="filter-checkbox__input"
         {...inputProps}
       />
-      <span className="filter-checkbox__switch interactive_type_2" />
+      <span className="filter-checkbox__switch interactive-type-2" />
       <span className="filter-checkbox__label">{children}</span>
     </label>
   )

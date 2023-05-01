@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './AboutMe.css';
-import photo from './about-me__photo.jpg';
+import photo from '../../../images/about-me__photo.jpg';
 
 export default function AboutMe() {
   return (
