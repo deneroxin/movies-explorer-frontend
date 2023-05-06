@@ -1,0 +1,48 @@
+.nav-tab {
+  height: 74px;
+  box-sizing: border-box;
+  padding: 0 min(70px, calc(30px + (70 - 30) * var(--t)));
+  font-size: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--color-promo);
+}
+
+.nav-tab__links {
+  display: flex;
+  align-items: center;
+}
+
+.nav-tab__signup {
+  font-weight: 500;
+  font-size: inherit;
+  color: var(--color-text);
+}
+
+.nav-tab__signin {
+  width: 76px;
+  line-height: 32px;
+  margin: 0 0 0 30px;
+  padding: 0;
+  border: none;
+  border-radius: 3px;
+  background-color: var(--color-elements);
+  font-weight: 500;
+  font-size: inherit;
+  color: black;
+  text-align: center;
+}
+
+
+@media screen and (max-width: 768px) {
+  .nav-tab {
+    padding: 0 calc(14px + (30 - 14) * var(--t));
+    font-size: calc(10px + (12 - 10) * var(--t));
+  }
+  .nav-tab__signin {
+    width: calc(54px + (76 - 54) * var(--t));
+    line-height: calc(26px + (32 - 26) * var(--t));
+    margin-left: calc(14px + (30 - 14) * var(--t));
+  }
+}

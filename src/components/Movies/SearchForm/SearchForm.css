@@ -1,0 +1,106 @@
+@keyframes ready-for-search {
+  from {
+    background-position-x: 50%;
+  }
+  to {
+    background-position-x: 60%;
+  }
+}
+
+.search-form {
+  padding: calc(75px + (65 - 75) * var(--t))
+           var(--padding) 47px
+           calc(60px + (47 - 60) * var(--t));
+}
+
+.search-form__search-bar {
+  position: relative;
+}
+
+.search-form__input {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0 0 32px;
+  padding: 5px 35px 13px 0;
+  border: none;
+  border-bottom: 1px solid var(--color-dark);
+  background: transparent;
+  font-weight: 500;
+  font-size: 28px;
+  line-height: 34px;
+  color: var(--color-text);
+}
+
+.search-form__input:focus-visible {
+  outline: none;
+  border-color: var(--color-elements);
+}
+
+.search-form__input::placeholder {
+  color: var(--color-dim);
+}
+
+.search-form__submit {
+  display: block;
+  position: absolute;
+  bottom: 13px;
+  right: 0;
+  border: none;
+  border-radius: 50%;
+  margin: 0;
+  padding: 0;
+  width: 34px;
+  height: 34px;
+  background: var(--color-submit) url(../../../images/search-form__submit-icon.svg) no-repeat center / 5px 12px;
+}
+
+.search-form__submit:disabled {
+  background-color: var(--color-dim);
+}
+
+.search-form__submit:focus-visible {
+  animation: ready-for-search infinite 1s linear;
+}
+
+.search-form__filter-checkbox {
+  gap: 14px;
+}
+
+
+@media screen and (max-width: 1024px) {
+  .search-form__filter-checkbox {
+    flex-direction: row-reverse;
+    gap: 16px;
+  }
+
+  .search-form__input {
+    margin-bottom: 29px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .search-form {
+    padding: calc(83px + (75 - 83) * var(--t))
+             calc(14px + (30 - 14) * var(--t))
+             calc(50px + (60 - 50) * var(--t));
+  }
+}
+
+@media screen and (max-width: 544px) {
+  .search-form__input {
+    margin-bottom: 40px;
+    padding-bottom: 15px;
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  .search-form__filter-checkbox {
+    justify-content: center;
+    gap: 13px;
+  }
+
+  .search-form__filter-checkbox .filter-checkbox__label {
+    font-size: 11px;
+  }
+}

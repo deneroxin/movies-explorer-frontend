@@ -1,0 +1,71 @@
+@import url(./vendor/normalize.css);
+@import url(./vendor/fonts/fonts.css);
+
+body {
+  --color-background: #202020;
+  --color-text: #fff;
+  --color-line: #dadada;
+  --color-pale: #a0a0a0;
+  --color-dim: #8b8b8b;
+  --color-dark: #424242;
+  --color-icon: #313131;
+  --color-cell: #303030;
+  --color-darker: #2f2f2f;
+  --color-tech: #272727;
+  --color-card: #222;
+  --color-notable: #ee3465;
+  --color-submit: #4285f4;
+  --color-elements: #3ddc84;
+  --color-promo: #073042;
+  --color-checkbox: #343434;
+  --color-checkbox-handle: var(--color-pale);
+  --t: ((100vw - 768px) / (1280 - 768));
+  background: var(--color-background);
+  font-family: Inter, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  color: var(--color-text);
+}
+
+@media screen and (max-width: 768px) {
+  body {
+    --t: ((100vw - 320px) / (768 - 320));
+  }
+}
+
+.interactive:not(:disabled), .interactive-type-2:not(:disabled) {
+  cursor: url(./images/interactive-cursor.png) 7 0, pointer;
+  text-decoration: none;
+}
+
+.interactive:focus-visible, .interactive-type-2:focus-visible {
+  outline-offset: 2px;
+  outline: 2px dashed var(--color-pale);
+}
+
+
+.interactive:not(:disabled) {
+  transition: color .3s ease, border-bottom-color .3s ease;
+}
+
+.interactive:not(:disabled):hover {
+  color: var(--color-elements);
+}
+
+
+.interactive-type-2:not(:disabled) {
+  transition: filter .3s ease;
+}
+
+.interactive-type-2:not(:disabled):hover {
+  filter: brightness(130%);
+}
+
+.site-logo {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--color-elements) url(./images/site-logo-c.svg) no-repeat center / 21px 22px;
+}

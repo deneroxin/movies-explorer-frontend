@@ -1,0 +1,28 @@
+.main {
+  --padding: min(70px, calc(50px + (70 - 50) * var(--t)));
+  --section-padding: min(110px, calc(90px + (110 - 90) * var(--t)));
+}
+
+.section-title {
+  margin: 0;
+  font-size: 22px;
+  line-height: 27px;
+  font-weight: 400;
+  padding-bottom: 23px;
+  border-bottom: 1px solid var(--color-line);
+}
+
+@media screen and (max-width: 768px) {
+  .main {
+    --padding: calc(18px + (50 - 18) * var(--t));
+    --section-padding: calc(70px + (90 - 70) * var(--t));
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .section-title {
+    font-size: 18px;
+    line-height: 22px;
+    padding-bottom: 28px;
+  }
+}

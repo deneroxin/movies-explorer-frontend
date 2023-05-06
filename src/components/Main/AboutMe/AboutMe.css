@@ -1,0 +1,116 @@
+.about-me {
+  box-sizing: border-box;
+  padding: var(--section-padding) var(--padding) 0;
+  background: var(--color-background);
+}
+
+.about-me__content {
+  padding-top: 66px;
+  display: grid;
+  grid-template-columns: 1fr min(270px, calc(255px + (270 - 255) * var(--t)));
+  grid-template-areas: 'info photo' 'github photo';
+  column-gap: min(270px, calc(49px + (270 - 49) * var(--t)));
+}
+
+.about-me__info {
+  grid-area: info;
+}
+
+.about-me__name {
+  margin: 0;
+  font-weight: 400;
+  font-size: 50px;
+  line-height: 58px;
+}
+
+.about-me__description {
+  margin: 18px 0 26px;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 20px;
+  letter-spacing: normal;
+}
+
+.about-me__text {
+  margin: 0;
+  font-size: 14px;
+  line-height: 22px;
+  letter-spacing: normal;
+}
+
+.about-me__photo {
+  grid-area: photo;
+  width: 100%;
+  border-radius: 10px;
+}
+
+.about-me__github-link {
+  grid-area: github;
+  align-self: end;
+  margin: 40px 0 0;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  color: var(--color-text);
+  letter-spacing: normal;
+}
+
+
+@media screen and (max-width: 1024px) {
+  .about-me__name {
+    font-size: 40px;
+    line-height: 40px;
+  }
+
+  .about-me__description {
+    margin: 16px 0 20px;
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .about-me__text {
+    font-size: 12px;
+    line-height: 18px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .about-me {
+    padding: var(--section-padding) calc(14px + (50 - 14) * var(--t)) 0;
+  }
+
+  .about-me__content {
+    padding-top: calc(60px + (66 - 60) * var(--t));
+    grid-template-columns: 364fr 255fr;
+    column-gap: 49px;
+  }
+}
+
+@media screen and (max-width: 544px) {
+  .about-me__name {
+    font-size: 30px;
+    line-height: 36px;
+  }
+
+  .about-me__description {
+    margin-top: 20px;
+    font-size: 11px;
+    line-height: 16px;
+  }
+
+  .about-me__text {
+    font-size: 11px;
+    line-height: 16px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .about-me__name {
+    margin-top: 40px;
+  }
+
+  .about-me__content {
+    grid-template-columns: 1fr;
+    grid-template-areas: 'photo' 'info' 'github';
+  }
+}

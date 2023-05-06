@@ -1,0 +1,12 @@
+.movies {
+  --padding: min(70px, calc(30px + (70 - 30) * var(--t)));
+  letter-spacing: normal;
+}
+
+
+
+@media screen and (max-width: 768px) {
+  .movies {
+    --padding: calc(10px + (30 - 10) * var(--t));
+  }
+}
