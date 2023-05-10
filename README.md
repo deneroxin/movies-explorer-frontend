@@ -1,10 +1,13 @@
 # Обозреватель фильмов
 
-Адрес репозитория: https://github.com/deneroxin/movies-explorer-frontend.git
+Адрес репозитория:
+https://github.com/deneroxin/movies-explorer-frontend.git
 
-Адрес исходного макета: https://disk.yandex.ru/d/CS6YmBQnzllZsw
+Адрес исходного макета:
+https://disk.yandex.ru/d/CS6YmBQnzllZsw
 
-Ссылка на пул-реквест: 
+Ссылка на пул-реквест:
+https://github.com/deneroxin/movies-explorer-frontend/pull/2#issue-1703587964
 
 
 ## Ссылки на проект
