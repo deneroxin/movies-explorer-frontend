@@ -19,11 +19,32 @@
   line-height: 29px;
 }
 
+.sign-pane__server-response {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  font-weight: 500px;
+  font-size: 14px;
+  line-height: 16px;
+  color: var(--color-elements);
+  text-align: center;
+  min-height: 69px;
+}
+
+.sign-pane__server-response.error {
+  color: var(--color-notable);
+}
+
+.sign-pane__server-response.extra-space {
+  min-height: calc(179px - 22px);
+}
+
 .sign-pane__submit {
   display: block;
   width: 100%;
   box-sizing: border-box;
-  margin: 69px 0 0;
+  margin: 0;
   padding: 13px;
   border: none;
   border-radius: 3px;
@@ -32,24 +53,16 @@
   line-height: 17px;
   color: var(--color-text);
   background: var(--color-submit);
-}
-
-.sign-pane__submit.extra-space {
-  margin-top: calc(179px - 22px);
+  min-height: calc(17px + 2 * 13px);
 }
 
 .sign-pane__submit:disabled {
   background: var(--color-pale);
 }
 
-.sign-pane__server-response {
-  display: block;
-  margin: 15px 0 0;
-  font-weight: 500px;
-  font-size: 14px;
-  line-height: 16px;
-  color: var(--color-notable);
-  text-align: center;
+.sign-pane__submit.making-request::before {
+  width: 20px;
+  height: 20px;
 }
 
 .sign-pane__nav {
@@ -91,8 +104,11 @@
     text-align: center;
   }
 
+  .sign-pane__server-response {
+    margin: auto 0;
+  }
+
   .sign-pane__submit {
-    margin-top: auto;
     font-size: 12px;
     line-height: 15px;
   }

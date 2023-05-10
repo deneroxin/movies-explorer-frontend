@@ -1,6 +1,15 @@
 @import url(./vendor/normalize.css);
 @import url(./vendor/fonts/fonts.css);
 
+@keyframes spin {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
 body {
   --color-background: #202020;
   --color-text: #fff;
@@ -25,7 +34,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-weight: 400;
-  letter-spacing: -0.04em;
   color: var(--color-text);
 }
 
@@ -68,4 +76,19 @@ body {
   height: 38px;
   border-radius: 50%;
   background: var(--color-elements) url(./images/site-logo-c.svg) no-repeat center / 21px 22px;
+}
+
+.making-request {
+  position: relative;
+}
+
+.making-request::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  border: 8px solid var(--color-background);
+  border-right-color: var(--color-text);
+  animation: spin infinite 1s ease-in-out;
 }

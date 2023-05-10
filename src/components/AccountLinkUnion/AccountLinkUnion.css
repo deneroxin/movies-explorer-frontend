@@ -10,10 +10,11 @@
   font-weight: 500;
   font-size: 14px;
   line-height: 16px;
-  padding: 2px 0;
+  padding: 4px 0;
 }
 
 .account-link-union__text-link.active {
+  padding-bottom: 2px;
   border-bottom: 2px solid var(--color-text);
 }
 

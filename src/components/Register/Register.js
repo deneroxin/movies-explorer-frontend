@@ -2,13 +2,13 @@ import React from 'react';
 import SignPane from '../SignPane/SignPane';
 import InputBox from '../InputBox/InputBox';
 import { registerValidationRules } from '../../utils/validation/signValidation';
+import { GlobalContext } from '../../contexts/contexts';
 import './Register.css';
 
 export default function Register() {
 
-  function handleFormSubmit() {
-
-  }
+  const { isMakingRequest, handleRegisterSubmit } = React.useContext(GlobalContext);
+  const [response, setResponse] = React.useState({ message: '' });
 
   return (
     <div className="register">
@@ -18,8 +18,9 @@ export default function Register() {
         prompt="Уже зарегистрированы?"
         linkText="Войти"
         linkPath="/signin"
-        onSubmit={handleFormSubmit}
+        onSubmit={handleRegisterSubmit}
         validationObject={registerValidationRules}
+        {...{isMakingRequest, response, setResponse}}
       >
         <InputBox type="text" name="name" label="Имя" id="name" maxLength="30" />
         <InputBox type="email" name="email" label="E-mail" id="email" />

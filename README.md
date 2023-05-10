@@ -2,14 +2,14 @@
 
 Адрес репозитория: https://github.com/deneroxin/movies-explorer-frontend.git
 
-Адрес исходного макета: https://disk.yandex.ru/d/AdU0Qjwoo_Xefw
+Адрес исходного макета: https://disk.yandex.ru/d/CS6YmBQnzllZsw
 
-А также ссылка на макет, предоставленная Figma:
-https://www.figma.com/file/NVGA4CEHxF3wuwh65aCZ2I/Diploma-(Copy)?type=design&t=Ycae0gwoWBG8QACf-6
+Ссылка на пул-реквест: 
+
 
 ## Ссылки на проект
 
-IP 158.160.054.203
+IP 158.160.39.221
 
 Frontend https://diploma.deneroxin.nomoredomains.monster
 

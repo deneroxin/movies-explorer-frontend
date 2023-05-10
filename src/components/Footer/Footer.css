@@ -6,7 +6,6 @@
   grid-template-rows: auto auto;
   grid-template-areas: 'subscript subscript' 'copyright links';
   row-gap: 20px;
-  letter-spacing: normal;
 }
 
 .footer__subscript, .footer__copyright, .footer__link {

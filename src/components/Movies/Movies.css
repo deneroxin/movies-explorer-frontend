@@ -1,12 +1,47 @@
 .movies {
   --padding: min(70px, calc(30px + (70 - 30) * var(--t)));
-  letter-spacing: normal;
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
+  box-sizing: border-box;
 }
 
+.movies__main {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: auto 1fr;
+}
+
+.movies__preloader {
+  box-sizing: border-box;
+}
+
+.movies__message-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 20%;
+}
+
+.movies__message {
+  font-size: 18px;
+  color: var(--color-text);
+  text-align: center;
+}
+
+.movies__message.error {
+  color: var(--color-notable);
+}
 
 
 @media screen and (max-width: 768px) {
   .movies {
     --padding: calc(10px + (30 - 10) * var(--t));
+  }
+
+  .movies__message {
+    font-size: 16px;
   }
 }

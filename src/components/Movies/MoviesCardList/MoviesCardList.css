@@ -9,6 +9,7 @@
   --num-initial-cards: 12;
   --num-added-cards: 3;
   display: grid;
+  width: 100%;
   grid-template-columns: repeat(3, 1fr);
   column-gap: 24px;
   row-gap: 37px;
