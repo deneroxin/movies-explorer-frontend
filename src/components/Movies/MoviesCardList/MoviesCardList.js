@@ -5,7 +5,7 @@ import { useGetStyleProperties } from '../../../utils/customHooks';
 import { CardListContext } from '../../../contexts/contexts';
 import './MoviesCardList.css';
 
-export default function MoviesCardList({ movies, setMovies, areSaved }) {
+export default function MoviesCardList({ movies, onLike, areSaved }) {
 
   const hasMoreButton = !areSaved;
 
@@ -25,10 +25,10 @@ export default function MoviesCardList({ movies, setMovies, areSaved }) {
   const [isDescriptionActive, setIsDescriptionActive] = React.useState(false);
   const descriptionTarget = React.useRef(null);
 
-  const handleInvokeDescription = React.useCallback((cardData) => {
+  function handleInvokeDescription(cardData) {
     descriptionTarget.current = cardData;
     setIsDescriptionActive(true);
-  }, []);
+  }
 
   function setInitialCards(value) {
     numInitialCards.current = parseInt(value);
@@ -54,10 +54,10 @@ export default function MoviesCardList({ movies, setMovies, areSaved }) {
 
   return (
     <div className="movies-card-list">
-      <CardListContext.Provider value={handleInvokeDescription}>
+      <CardListContext.Provider value={{handleInvokeDescription, onLike}}>
         <ul className="movies-card-list__container" ref={containerElement}>
           {moviesSliced.map((card) => <MoviesCard
-            key={card.movieId} cardData={card} {...{setMovies}} hasLike={!areSaved}
+            key={card.movieId} cardData={card}
           />)}
         </ul>
       </CardListContext.Provider>

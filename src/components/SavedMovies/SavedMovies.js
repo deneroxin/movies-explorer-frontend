@@ -5,12 +5,15 @@ import SearchForm from '../Movies/SearchForm/SearchForm';
 import MoviesCardList from '../Movies/MoviesCardList/MoviesCardList';
 import Preloader from '../Movies/Preloader/Preloader';
 import { GlobalContext } from '../../contexts/contexts';
-import { getLocalItem } from '../../utils/utils';
+import { setLocalItem, getLocalItem, getErrorMessage } from '../../utils/utils';
+import { filterMovies } from '../../utils/filterMovies';
+import { api } from '../../utils/MainApi';
+import { msg } from '../../constants/constants';
 import '../Movies/Movies.css';
 
 export default function SavedMovies() {
 
-  const { isMakingRequest, findSavedMovies } = React.useContext(GlobalContext);
+  const { isMakingRequest, savedMovies, setSavedMovies } = React.useContext(GlobalContext);
   const [response, setResponse] = React.useState({ message: '' });
   const [foundMovies, setFoundMovies] = React.useState([]);
 
@@ -18,10 +21,30 @@ export default function SavedMovies() {
     getLocalItem('saved-movies-search') || { requestText: '', filterShort: false }
   , []);
 
-  React.useEffect(() => beginSearch(requestText, filterShort), []);
+  React.useEffect(() => findMovies(requestText, filterShort), []);
 
-  function beginSearch(requestText, filterShort) {
-    findSavedMovies(requestText, filterShort, setFoundMovies, setResponse);
+  function findMovies(requestText, filterShort) {
+    setLocalItem('saved-movies-search', { requestText, filterShort });
+    const foundMovies = filterMovies(savedMovies, requestText, filterShort);
+    if (!foundMovies.length) {
+      setResponse({ type: 'report', message: msg.NOTHING_FOUND });
+    } else {
+      setResponse({ message: '' });
+    }
+    setFoundMovies(foundMovies);
+  }
+
+  function onLike({ movieId }, playEffect) {
+    const { _id } = savedMovies.find((movie) => movie.movieId === movieId);
+    api.removeMovie(_id)
+      .then(() => {
+        const deleteMovie = (prevData) => prevData.filter((movie) => movie._id !== _id);
+        setSavedMovies(deleteMovie);
+        playEffect(() => setFoundMovies(deleteMovie));
+      })
+      .catch((err) => {
+        console.log(getErrorMessage(err));
+      })
   }
 
   const serverError = response.type === 'error' ? ' error' : '';
@@ -30,11 +53,11 @@ export default function SavedMovies() {
     <div className="movies">
       <Header />
       <main className="movies__main">
-        <SearchForm {...{requestText, filterShort, isMakingRequest, areSaved: true}}
-          onSubmit={beginSearch} />
+        <SearchForm {...{findMovies, requestText, filterShort,
+          isMakingRequest, areSaved: true}} />
         {isMakingRequest ? <Preloader className="movies__preloader" />
           : foundMovies.length ?
-            <MoviesCardList movies={foundMovies} setMovies={setFoundMovies} areSaved />
+            <MoviesCardList movies={foundMovies} {...{onLike}} areSaved />
             : <div className="movies__message-container">
                 <span className={`movies__message${serverError}`}>
                   { response.message }

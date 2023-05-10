@@ -8,8 +8,8 @@ function transform(movieData) {
   return {
     country, director, duration, description,
     year, trailerLink, nameRU, nameEN,
-    image: image.url,
-    thumbnail: image.formats.thumbnail.url,
+    image: `${addr.beatfilmMoviesBase}${image.url}`,
+    thumbnail: `${addr.beatfilmMoviesBase}${image.formats.thumbnail.url}`,
     movieId: id
   };
 }

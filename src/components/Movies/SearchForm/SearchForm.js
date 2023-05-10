@@ -4,24 +4,29 @@ import { msg } from '../../../constants/constants';
 import './SearchForm.css'
 
 export default function SearchForm({
-  requestText, filterShort, isMakingRequest, onSubmit, areSaved
+  requestText, filterShort, isMakingRequest, findMovies, areSaved
 }) {
   const [onlyShort, setOnlyShort] = React.useState(filterShort);
   const [inputContent, setInputContent] = React.useState(requestText);
   const [hintText, setHintText] = React.useState('');
 
-  function handleFilterCheckboxChange() {
-    setOnlyShort((oldState) => !oldState);
-  }
-
-  function handleSubmit(evt) {
-    evt.preventDefault();
+  function beginSearch(filterShort) {
     if (isMakingRequest) return;
     if (!inputContent && !areSaved) {  // Пустой запрос запрещён только для исходных фильмов,
       setHintText(msg.ENTER_KEYWORD);  // а для сохраненных пустой запрос возвращает все.
     } else {
-      onSubmit(inputContent, onlyShort);
+      findMovies(inputContent, filterShort);
     }
+  }
+
+  function handleFilterCheckboxChange() {
+    setOnlyShort(!onlyShort);
+    beginSearch(!onlyShort);
+  }
+
+  function handleSubmit(evt) {
+    evt.preventDefault();
+    beginSearch(onlyShort);
   }
 
   function handleInputChange(evt) {

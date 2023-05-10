@@ -1,5 +1,3 @@
-import { addr } from '../constants/constants';
-
 export function setLocalItem(name, object) {
   localStorage.setItem(name, JSON.stringify(object));
 }
@@ -9,10 +7,13 @@ export function getLocalItem(name) {
   return (item ? JSON.parse(item) : undefined);
 }
 
-export function expandUrl(movie) {
-  return {
-    ...movie,
-    image: `${addr.beatfilmMoviesBase}${movie.image}`,
-    thumbnail: `${addr.beatfilmMoviesBase}${movie.thumbnail}`
-  }
+export function setLike(movies, id, status) {
+  return movies.map((movie) =>
+    movie.movieId === id ? {...movie, isLiked: status} : movie);
+}
+
+export function getErrorMessage(err) {
+  return (err.statusCode === 400 && err.validation && err.validation.body && err.validation.body.message)
+    ? `${err.message}: ${err.validation.body.message}`
+    : err.message;
 }

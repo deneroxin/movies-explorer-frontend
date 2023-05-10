@@ -11,12 +11,10 @@ import Register from '../Register/Register';
 import NotFound from '../NotFound/NotFound';
 import Navigation from '../Navigation/Navigation';
 import Protected from '../Protected/Protected';
-import { getMovies } from '../../utils/MoviesApi';
-import { filterMovies } from '../../utils/filterMovies';
 import { msg } from '../../constants/constants';
 import { api } from '../../utils/MainApi';
 import { useCurrentPathRef } from '../../utils/customHooks';
-import { setLocalItem, expandUrl } from '../../utils/utils';
+import { getErrorMessage } from '../../utils/utils';
 
 
 export default function App() {
@@ -55,17 +53,15 @@ export default function App() {
   const globalState = React.useMemo(() => ({
     tryingToAuthorize,
     isMakingRequest,
+    savedMovies,
+    setSavedMovies,
+    startRequest,
+    stopRequest,
     openNav,
-    findMovies,
-    findSavedMovies,
-    loadSavedMovies,
     handleRegisterSubmit,
     handleLoginSubmit,
     handleUpdateUserInfo,
     handleLogout,
-    attachLikes,
-    handlePutLike,
-    handleRemoveLike,
   }), [tryingToAuthorize, isMakingRequest, savedMovies]);
 
   const [isNavActive, setNavActive] = React.useState(false);
@@ -94,50 +90,6 @@ export default function App() {
     return api.getMovies().then(setSavedMovies)
   }
 
-  function isMovieLiked(id) {
-    return Boolean(savedMovies.find(({ movieId }) => movieId === id));
-  }
-
-  function attachLikes(movieList) {
-    if (!movieList) return [];
-    return movieList.map((movie) => ({...movie, isLiked: isMovieLiked(movie.movieId)}));
-  }
-
-  function getErrorMessage(err) {
-    return (err.statusCode === 400 && err.validation && err.validation.body && err.validation.body.message)
-      ? `${err.message}: ${err.validation.body.message}`
-      : err.message;
-  }
-
-  function findMovies(requestText, filterShort, setMovies, setResponse) {
-    startRequest(setResponse);
-    setLocalItem('movies-search', { requestText, filterShort });
-    getMovies()
-      .then((allMovies) => {
-        const filteredMovies = filterMovies(allMovies, requestText, filterShort);
-        setLocalItem('movies', filteredMovies);
-        setMovies(attachLikes(filteredMovies));
-        if (!filteredMovies.length) {
-          setResponse({ type: 'report', message: msg.NOTHING_FOUND });
-        }
-      })
-      .catch(() => {
-        setResponse({ type: 'error', message: msg.MOVIES_FETCH_FAIL });
-      })
-      .finally(stopRequest);
-  }
-
-  function findSavedMovies(requestText, filterShort, setFoundMovies, setResponse) {
-    setLocalItem('saved-movies-search', { requestText, filterShort });
-    const foundMovies = filterMovies(savedMovies, requestText, filterShort);
-    if (!foundMovies.length) {
-      setResponse({ type: 'report', message: msg.NOTHING_FOUND });
-    } else {
-      setResponse({ message: '' });
-    }
-    setFoundMovies(foundMovies);
-  }
-
   function handleRegisterSubmit(inputsData, setResponse) {
     startRequest(setResponse);
     api.createUser(inputsData)
@@ -147,10 +99,10 @@ export default function App() {
           .then(() => {
             setResponse({ type: 'ok', message: msg.REGISTERED_AND_AUTHORIZED });
             setTimeout(() => {
-              // Через 3 сек. переходим на страницу /movies, но только
+              // Через 2 сек. переходим на страницу /movies, но только
               // если пользователь не успел сам перейти на другую страницу:
               if (currentPathRef.current === '/signup') navigate('/movies')
-            }, 3000);
+            }, 2000);
           })
           .catch((err) => setResponse({
             type: 'error',
@@ -207,40 +159,6 @@ export default function App() {
     setCurrentUser(null);
     navigate('/');
   };
-
-  function setLike(movies, id, status) {
-    return movies.map((movie) =>
-      movie.movieId === id ? {...movie, isLiked: status} : movie);
-  }
-
-  function handlePutLike({ isLiked, ...movieData }, setMovies) {
-    api.addMovie(expandUrl(movieData))
-      .then((movieDataEcho) => {
-        setSavedMovies((prevData) => prevData.concat(movieDataEcho));
-        setMovies((prevData) => setLike(prevData, movieData.movieId, true));
-      })
-      .catch((err) => {
-        console.log(getErrorMessage(err));
-      })
-  }
-
-  function handleRemoveLike(movieId, setMovies, hasLike, playEffect) {
-    const { _id } = savedMovies.find((movie) => movie.movieId === movieId);
-    api.removeMovie(_id)
-      .then(() => {
-        const deleteMovie = (prevData) => prevData.filter((movie) => movie._id !== _id);
-        setSavedMovies(deleteMovie);
-        if (hasLike) {
-          setMovies((prevData) => setLike(prevData, movieId, false));
-        } else {
-          playEffect(() => setMovies(deleteMovie));
-        }
-      })
-      .catch((err) => {
-        console.log(getErrorMessage(err));
-      })
-  }
-
 
   return (
     <GlobalContext.Provider value={ globalState }>
