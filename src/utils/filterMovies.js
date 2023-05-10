@@ -35,7 +35,7 @@ function transformRequest(request) {
 // Чтобы знаки препиная не мешали сопоставлять, уберём их из исходного текста,
 // а также заменим все "ё" на "е", чтобы уравнять ё и е
 function flatten(text) {
-  return text.replace(/[,.!?:;"'()/—«»-]/g, ' ').replace(/ё/gi, 'е');
+  return text.replace(/[,.!?:;"'()/—«»\n\t*&'-]/g, ' ').replace(/ё/gi, 'е');
 }
 
 
