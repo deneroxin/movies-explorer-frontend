@@ -1,21 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { CardListContext } from '../../../contexts/contexts';
+import { time } from '../../../constants/constants';
 import './MoviesCard.css';
 
-export default function MoviesCard({ cardData }) {
-
-  const { handleInvokeDescription, onLike } = React.useContext(CardListContext);
+export default function MoviesCard({ cardData, onLike, handleInvokeDescription }) {
 
   const cardElement = React.useRef(null);
 
-  const hours = Math.floor(cardData.duration / 60);
-  const minutes = cardData.duration % 60;
+  const hours = Math.floor(cardData.duration / time.MINUTES_IN_AN_HOUR);
+  const minutes = cardData.duration % time.MINUTES_IN_AN_HOUR;
 
   function playEffect(actionAfterEffect) {
     cardElement.current.classList.add('removed');
     const style = window.getComputedStyle(cardElement.current);
-    const delay = parseFloat(style.getPropertyValue('transition-duration')) * 1000;
+    const delay = parseFloat(style.getPropertyValue('transition-duration')) * time.MS_IN_A_SECOND;
     setTimeout(actionAfterEffect, delay);
   }
 

@@ -11,9 +11,8 @@ import Register from '../Register/Register';
 import NotFound from '../NotFound/NotFound';
 import Navigation from '../Navigation/Navigation';
 import Protected from '../Protected/Protected';
-import { msg } from '../../constants/constants';
+import { msg, codes } from '../../constants/constants';
 import { api } from '../../utils/MainApi';
-import { useCurrentPathRef } from '../../utils/customHooks';
 import { getErrorMessage } from '../../utils/utils';
 
 
@@ -37,7 +36,7 @@ export default function App() {
       .then(setCurrentUser)
       .then(loadSavedMovies)
       .catch((err) => {
-        if (err.statusCode === 500) {
+        if (err.statusCode === codes.INTERNAL_SERVER_ERROR) {
           console.log(err.message);
         } else {
           localStorage.removeItem('jwt');
@@ -50,7 +49,7 @@ export default function App() {
   // используется для индикации загрузки и блокировки повторного нажатия кнопок, когда запрос пошёл.
   const [isMakingRequest, setIsMakingRequest] = React.useState(false);
 
-  const globalState = React.useMemo(() => ({
+  const globalState = {
     tryingToAuthorize,
     isMakingRequest,
     savedMovies,
@@ -62,12 +61,11 @@ export default function App() {
     handleLoginSubmit,
     handleUpdateUserInfo,
     handleLogout,
-  }), [tryingToAuthorize, isMakingRequest, savedMovies]);
+  };
 
   const [isNavActive, setNavActive] = React.useState(false);
 
   const navigate = useNavigate();
-  const currentPathRef = useCurrentPathRef();
 
   function openNav() {
     setNavActive(true);
@@ -79,11 +77,11 @@ export default function App() {
 
   function startRequest(setResponse) {
     setResponse({ message: '' });
-    setIsMakingRequest(() => true);
+    setIsMakingRequest(true);
   }
 
   function stopRequest() {
-    setIsMakingRequest(() => false);
+    setIsMakingRequest(false);
   }
 
   function loadSavedMovies() {
@@ -94,16 +92,9 @@ export default function App() {
     startRequest(setResponse);
     api.createUser(inputsData)
       .then(() => {
+        setResponse({ type: 'ok', message: msg.REGISTER_SUCCESS });
         const { email, password } = inputsData;
         return login({ email, password })
-          .then(() => {
-            setResponse({ type: 'ok', message: msg.REGISTERED_AND_AUTHORIZED });
-            setTimeout(() => {
-              // Через 2 сек. переходим на страницу /movies, но только
-              // если пользователь не успел сам перейти на другую страницу:
-              if (currentPathRef.current === '/signup') navigate('/movies')
-            }, 2000);
-          })
           .catch((err) => setResponse({
             type: 'error',
             message: `${msg.REGISTERED_BUT_NOT_AUTHORIZED}: ${getErrorMessage(err)}`
@@ -112,7 +103,8 @@ export default function App() {
       .catch((err) => {
         setResponse({
           type: 'error',
-          message: err.statusCode === 500 ? msg.REGISTER_FAIL : getErrorMessage(err)
+          message: err.statusCode === codes.INTERNAL_SERVER_ERROR
+            ? msg.REGISTER_FAIL : getErrorMessage(err)
         });
       })
       .finally(stopRequest);
@@ -131,7 +123,6 @@ export default function App() {
   function handleLoginSubmit(inputsData, setResponse) {
     startRequest(setResponse);
     login(inputsData)
-      .then(() => navigate('/movies'))
       .catch((err) => {
         setResponse({ type: 'error', message: getErrorMessage(err) });
       })
@@ -148,7 +139,8 @@ export default function App() {
       .catch((err) => {
         setResponse({
           type: 'error',
-          message: err.statusCode === 500 ? msg.PROFILE_UPDATE_FAIL : getErrorMessage(err)
+          message: err.statusCode === codes.INTERNAL_SERVER_ERROR
+            ? msg.PROFILE_UPDATE_FAIL : getErrorMessage(err)
         });
       })
       .finally(stopRequest);
@@ -157,6 +149,7 @@ export default function App() {
   function handleLogout() {
     localStorage.clear();
     setCurrentUser(null);
+    setSavedMovies([]);
     navigate('/');
   };
 
@@ -169,8 +162,8 @@ export default function App() {
           <Route path="/movies" element={ <Protected element={<Movies />} /> } />
           <Route path="/saved-movies" element={ <Protected element={<SavedMovies />} /> } />
           <Route path="/profile" element={ <Protected element={<Profile />} /> } />
-          <Route path="/signin" element={ <Login /> } />
-          <Route path="/signup" element={ <Register /> } />
+          <Route path="/signin" element={ <Protected inverse element={<Login />} /> } />
+          <Route path="/signup" element={ <Protected inverse element={<Register />} /> } />
           <Route path="*" element={ <NotFound /> } />
         </Routes>
         {currentUser && <Navigation isActive={isNavActive} onClose={closeNav} />}

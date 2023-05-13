@@ -2,7 +2,6 @@ import React from 'react';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import Description from './Description/Description';
 import { useGetStyleProperties } from '../../../utils/customHooks';
-import { CardListContext } from '../../../contexts/contexts';
 import './MoviesCardList.css';
 
 export default function MoviesCardList({ movies, onLike, areSaved }) {
@@ -54,13 +53,11 @@ export default function MoviesCardList({ movies, onLike, areSaved }) {
 
   return (
     <div className="movies-card-list">
-      <CardListContext.Provider value={{handleInvokeDescription, onLike}}>
-        <ul className="movies-card-list__container" ref={containerElement}>
-          {moviesSliced.map((card) => <MoviesCard
-            key={card.movieId} cardData={card}
-          />)}
-        </ul>
-      </CardListContext.Provider>
+      <ul className="movies-card-list__container" ref={containerElement}>
+        {moviesSliced.map((card) => <MoviesCard
+          key={card.movieId} cardData={card} {...{handleInvokeDescription, onLike}}
+        />)}
+      </ul>
       { hasMoreButton && numCards < movies.length &&
         <button className="movies-card-list__more-button interactive-type-2"
           onClick={handleMoreClick}>Ещё</button>}

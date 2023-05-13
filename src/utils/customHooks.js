@@ -1,5 +1,6 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
+import { time } from '../constants/constants';
 import FormValidator from './helperClasses/FormValidator';
 
 // Этот хук считывает значения css-свойств DOM-элемента, которые могут зависеть от размеров экрана.
@@ -9,7 +10,7 @@ import FormValidator from './helperClasses/FormValidator';
 //   имя свойства (строка),
 //   функция, описывающая, что делать со значением свойства, когда оно получено
 // ]
-export function useGetStyleProperties(propList, delay = 100) {
+export function useGetStyleProperties(propList, delay = time.GOOD_RESIZE_DELAY) {
   React.useEffect(function getParamValues() {
     let deferredAction = null;
     function updateParams() {
@@ -84,17 +85,4 @@ export function useValidation(validationObject) {
   }
 
   return [formData, validator.isFormInvalid(), setContent];
-}
-
-
-// Этот хук создаёт ссылку на текущий путь, которая будет всегда актуальна.
-// Это полезно, если надо сослаться на текущий путь в отложенной процедуре,
-// когда неизвестно, каким он будет во время её срабатывания.
-export function useCurrentPathRef() {
-  const location = useLocation();
-  const currentPath = React.useRef(location.pathname);
-  React.useEffect(() => {
-    currentPath.current = location.pathname;
-  }, [location.pathname]);
-  return currentPath;
 }

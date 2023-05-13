@@ -1,3 +1,5 @@
+import { time } from '../constants/constants';
+
 // СИНТАКСИС ЗАПРОСА
 
 // Запрос может состоять из нескольких подзапросов, разделёных /.
@@ -35,7 +37,7 @@ function transformRequest(request) {
 // Чтобы знаки препиная не мешали сопоставлять, уберём их из исходного текста,
 // а также заменим все "ё" на "е", чтобы уравнять ё и е
 function flatten(text) {
-  return text.replace(/[,.!?:;"'()/—«»\n\t*&'-]/g, ' ').replace(/ё/gi, 'е');
+  return text.replace(/[,.!?:;"'()/—«»\n\t*&-]/g, ' ').replace(/ё/gi, 'е');
 }
 
 
@@ -57,7 +59,8 @@ export function filterMovies(data, requestText, filterShort) {
   // пользователь рано или поздно захочет увидеть все свои фильмы,
   // и если пустой запрос будет запрещён, то как он их получит?
   if (!requestText) return sortMovies(
-    data.filter((film) => !(filterShort && film.duration > 40))
+    data.filter((film) =>
+      !(filterShort && film.duration > time.SHORT_FILM_DURATION))
   );
   const regexp = transformRequest(requestText);
   return sortMovies(data.filter((film) =>
@@ -65,6 +68,6 @@ export function filterMovies(data, requestText, filterShort) {
     || regexp.test(flatten(film.nameEN))
     || regexp.test(flatten(film.director))
     || regexp.test(flatten(film.description)))
-    && !(filterShort && film.duration > 40)
+    && !(filterShort && film.duration > time.SHORT_FILM_DURATION)
   ));
 }

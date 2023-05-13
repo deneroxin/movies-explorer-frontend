@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useValidation } from '../../utils/customHooks';
-import { FormDataContext } from '../../contexts/contexts';
+import { CurrentUserContext, FormDataContext } from '../../contexts/contexts';
+import { numeric } from '../../constants/constants';
 import './SignPane.css';
 
 export default function SignPane({
@@ -9,14 +10,16 @@ export default function SignPane({
   children, validationObject, onSubmit, isMakingRequest, response, setResponse
 }) {
 
+  const currentUser = React.useContext(CurrentUserContext);
+
   const [formData, isFormInvalid] = useValidation(validationObject);
 
   function handleSubmit(evt) {
     evt.preventDefault();
-    if (!isMakingRequest) onSubmit(formData.inputsContent, setResponse);
+    if (!isMakingRequest && !currentUser) onSubmit(formData.inputsContent, setResponse);
   }
 
-  const extraSpace = children.length < 3 ? ' extra-space' : '';
+  const extraSpace = children.length < numeric.MAX_POSSIBLE_FIELDS ? ' extra-space' : '';
   const makingRequest = isMakingRequest ? ' making-request' : '';
   const error = response.type === 'error' ? ' error' : '';
 

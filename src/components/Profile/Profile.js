@@ -18,7 +18,9 @@ export default function Profile() {
 
   function handleFormSubmit(evt) {
     evt.preventDefault();
-    if (!isMakingRequest) handleUpdateUserInfo(inputsContent, setResponse);
+    if (!isMakingRequest && (inputsContent.name !== name || inputsContent.email !== email)) {
+      handleUpdateUserInfo(inputsContent, setResponse);
+    }
   }
 
   const error = (field) => showError[field] && errorText[field] ? ' error' : '';
