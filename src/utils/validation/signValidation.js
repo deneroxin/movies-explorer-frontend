@@ -4,7 +4,8 @@ export const registerValidationRules = {
   name: [
     [text => Boolean(text), 'Имя обязательно'],
     [text => text.length >= 2, 'Имя не должно быть меньше 2 символов'],
-    [text => text.length <= 30, 'Имя не должно превышать 30 символов']
+    [text => text.length <= 30, 'Имя не должно превышать 30 символов'],
+    [text => !(/[^a-zа-яё -]/i).test(text), 'Имя должно содержать только латиницу, кириллицу, пробел или дефис'],
   ],
   email: [
     [text => Boolean(text), 'E-mail обязателен'],

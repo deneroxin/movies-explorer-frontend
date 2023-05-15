@@ -1,15 +1,16 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { GlobalHandlersContext } from '../../contexts/contexts';
+import { GlobalContext } from '../../contexts/contexts';
 import './Header.css';
 import AccountLinkUnion from '../AccountLinkUnion/AccountLinkUnion';
 
-export default function Header() {
+export default function Header({ promoStyle = false }) {
 
-  const { openNav } = React.useContext(GlobalHandlersContext);
+  const { openNav } = React.useContext(GlobalContext);
+  const promoPalette = promoStyle ? ' promo-style' : '';
 
   return (
-    <header className="header">
+    <header className={`header${promoPalette}`}>
       <Link className="header__logo site-logo interactive-type-2" to="/" />
       <nav className="header__nav">
         <NavLink className="header__link interactive" to="/movies">

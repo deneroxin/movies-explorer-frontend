@@ -1,18 +1,28 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useValidation } from '../../utils/customHooks';
-import { FormDataContext } from '../../contexts/contexts';
+import { CurrentUserContext, FormDataContext } from '../../contexts/contexts';
+import { numeric } from '../../constants/constants';
 import './SignPane.css';
 
 export default function SignPane({
   className, title, submitText, prompt, linkText, linkPath,
-  children, validationObject, onSubmit
+  children, validationObject, onSubmit, isMakingRequest, response, setResponse
 }) {
+
+  const currentUser = React.useContext(CurrentUserContext);
+
   const [formData, isFormInvalid] = useValidation(validationObject);
+
   function handleSubmit(evt) {
     evt.preventDefault();
-    onSubmit();
+    if (!isMakingRequest && !currentUser) onSubmit(formData.inputsContent, setResponse);
   }
+
+  const extraSpace = children.length < numeric.MAX_POSSIBLE_FIELDS ? ' extra-space' : '';
+  const makingRequest = isMakingRequest ? ' making-request' : '';
+  const error = response.type === 'error' ? ' error' : '';
+
   return (
     <div className={`sign-pane ${className}`}>
       <Link className="sign-pane__logo site-logo interactive-type-2" to="/" />
@@ -21,19 +31,16 @@ export default function SignPane({
         <FormDataContext.Provider value={formData}>
           {children}
         </FormDataContext.Provider>
+        <span className={`sign-pane__server-response${extraSpace}${error}`}>
+          {response.message}
+        </span>
         <button type="submit"
-          className={`sign-pane__submit interactive-type-2${children.length < 3 ? ' extra-space' : ''}`}
+          className={`sign-pane__submit interactive-type-2${makingRequest}`}
           disabled={isFormInvalid}
         >
-          {submitText}
+          {!isMakingRequest ? submitText : ' '}
         </button>
       </form>
-      <span className="sign-pane__server-response">
-        {formData.showError._global && formData.errorText._global}
-      </span>
-      {/* <span className="sign-pane__server-response">
-        Что-то пошло не так!
-      </span> */}
       <nav className="sign-pane__nav">
         <span className="sign-pane__prompt">{prompt}</span>
         <Link className="sign-pane__link interactive-type-2" to={linkPath}>

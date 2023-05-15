@@ -1,0 +1,112 @@
+.description {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 0 20px;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity .2s ease, visibility 0s .2s;
+}
+
+.description.visible {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity .3s ease;
+}
+
+.description__pane {
+  width: 100%;
+  max-width: 400px;
+  max-height: 90%;
+  background: var(--color-pale);
+  border-radius: 10px;
+  display: grid;
+  grid-template-columns: minmax(20px, 1fr) minmax(auto, 60%);
+  grid-template-rows: 16px repeat(3, max-content) 1fr;
+  grid-template-areas: 'year close' 'title title' 'title-en title-en' 'dir-label director' 'text text';
+  align-items: center;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: 20px;
+  box-shadow: inset 5px 5px 5px white, inset -5px -5px 5px #111, 5px 5px 5px #111;
+}
+
+.description__year {
+  grid-area: year;
+  margin: 0;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  color: black;
+}
+
+.description__close {
+  grid-area: close;
+  justify-self: end;
+  margin: 0;
+  padding: 0;
+  border: none;
+  width: 30px;
+  height: 30px;
+  background: url(../../../../images/navigation__close-icon.svg) no-repeat center / contain;
+  position: relative;
+  left: 7px;
+}
+
+.description__title {
+  grid-area: title;
+  margin: 2px 0;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  color: black;
+  text-align: center;
+}
+
+.description__title-en {
+  grid-area: title-en;
+  margin: 3px 0;
+  font-size: 15px;
+  line-height: 18px;
+  color: black;
+  text-align: center;
+}
+
+.description__director-label {
+  grid-area: dir-label;
+  align-self: start;
+  margin: 7px 0 20px;
+  font-size: 14px;
+  line-height: 16px;
+  color: black;
+  overflow: hidden;
+  text-overflow: clip;
+}
+
+.description__director {
+  grid-area: director;
+  margin: 7px 0 20px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  color: black;
+  text-align: right;
+}
+
+.description__text {
+  grid-area: text;
+  height: 100%;
+  margin: 0;
+  box-sizing: border-box;
+  font-size: 12px;
+  line-height: 14px;
+  color: black;
+  overflow: hidden;
+}

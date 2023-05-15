@@ -12,7 +12,6 @@
   font-size: 18px;
   line-height: 20px;
   color: var(--color-pale);
-  letter-spacing: normal;
 }
 
 .portfolio__list {
@@ -30,6 +29,7 @@
 .portfolio__text-link, .portfolio__arrow-link {
   font-size: 30px;
   line-height: 50px;
+  letter-spacing: -0.04em;
   color: var(--color-text);
 }
 

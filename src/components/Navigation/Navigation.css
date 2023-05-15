@@ -3,7 +3,7 @@
   z-index: 1;
   visibility: hidden;
   opacity: 0;
-  transition: opacity .5s ease, visibility 0s .5s;
+  transition: opacity .5s ease, visibility 0s .1s;
   position: fixed;
   top: 0;
   left: 0;
@@ -15,7 +15,7 @@
 .navigation.visible {
   visibility: visible;
   opacity: 1;
-  transition: opacity .5s ease;
+  transition: opacity .3s ease;
 }
 
 .navigation__panel {
@@ -38,10 +38,11 @@
   font-size: 18px;
   line-height: 22px;
   color: var(--color-text);
-  padding: 4px 0;
+  padding: 6px 0;
 }
 
 .navigation__link.active {
+  padding-bottom: 4px;
   border-bottom: 2px solid var(--color-text);
 }
 

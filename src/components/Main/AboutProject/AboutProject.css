@@ -17,6 +17,7 @@
   font-size: 20px;
   line-height: 24px;
   font-weight: 400;
+  letter-spacing: -0.04em;
 }
 
 .about-project__text {
@@ -24,7 +25,6 @@
   font-size: 14px;
   line-height: 20px;
   min-height: 150px;
-  letter-spacing: normal;
 }
 
 .about-project__chart {
@@ -32,7 +32,6 @@
   grid-template-columns: 1fr 4fr;
   grid-template-rows: repeat(2, max-content);
   grid-auto-flow: column;
-  letter-spacing: normal;
 }
 
 .about-project__chart-segment {

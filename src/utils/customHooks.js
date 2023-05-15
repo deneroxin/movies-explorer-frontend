@@ -1,4 +1,6 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
+import { time } from '../constants/constants';
 import FormValidator from './helperClasses/FormValidator';
 
 // Этот хук считывает значения css-свойств DOM-элемента, которые могут зависеть от размеров экрана.
@@ -8,7 +10,7 @@ import FormValidator from './helperClasses/FormValidator';
 //   имя свойства (строка),
 //   функция, описывающая, что делать со значением свойства, когда оно получено
 // ]
-export function useGetStyleProperties(propList, delay = 100) {
+export function useGetStyleProperties(propList, delay = time.GOOD_RESIZE_DELAY) {
   React.useEffect(function getParamValues() {
     let deferredAction = null;
     function updateParams() {
@@ -27,13 +29,8 @@ export function useGetStyleProperties(propList, delay = 100) {
       window.removeEventListener('resize', handleResize);
       clearTimeout(deferredAction);
     });
-  }, []);  // Здесь намеренно оставлен пустой массив зависимостей, ради оптимальности,
-  // так как нам нужно один раз зарегистрировать список параметров и никогда его не менять.
-  // При включении в зависимость paramList, пришлось бы оборачивать его снаружи в Memo,
-  // чтобы getParamValues() каждый раз не пересоздавался, или свою логику сравнения городить внутри,
-  // а нам это всё равно не пригодится.
+  }, []);
 }
-
 
 
 // Этот хук управляет поведением отображения ошибок в полях.
@@ -53,16 +50,13 @@ export function useValidation(validationObject) {
   const didLoseFocus = React.useMemo(() => validator.generateState(false), []);
   const [inputsContent, setInputsContent] = React.useState(() => validator.generateContent(''));
   const [showError, setShowError] = React.useState(fillShowError);
-  const modifyInputsContent = React.useCallback((newSubstate) => {
-    setInputsContent(oldFullState => validator.validate(newSubstate, oldFullState));
-  }, []);
 
   const formData = React.useMemo(() => ({
     inputsContent,
     showError,
     errorText: validator.getErrorText(),
     onChange: handleInputChange,
-    onBlur: handleInputBlur
+    onBlur: handleInputBlur,
   }), [inputsContent, showError]);
 
   function fillShowError() {
@@ -72,7 +66,8 @@ export function useValidation(validationObject) {
 
   function handleInputChange(evt) {
     const { name, value } = evt.target;
-    modifyInputsContent({[name]: value});
+    setInputsContent(oldFullState =>
+      validator.validate({[name]: value}, oldFullState));
   }
 
   function handleInputBlur(evt) {
@@ -85,5 +80,9 @@ export function useValidation(validationObject) {
       setShowError((oldState) => ({ ...oldState, _global: isGlobalInvalid }));
   }
 
-  return [formData, validator.isFormInvalid()];
+  function setContent(content) {
+    return setInputsContent(validator.validate(null, content));
+  }
+
+  return [formData, validator.isFormInvalid(), setContent];
 }

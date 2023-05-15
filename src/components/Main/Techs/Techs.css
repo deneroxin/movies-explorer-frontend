@@ -2,9 +2,10 @@
   box-sizing: border-box;
   padding: min(100px, calc(90px + (100 - 90) * var(--t))) var(--padding);
   background: var(--color-tech);
+  letter-spacing: -0.04em;
 }
 
-.techs_content {
+.techs__content {
   display: flex;
   flex-direction: column;
   align-items: center;

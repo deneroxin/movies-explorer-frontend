@@ -1,3 +1,9 @@
+@keyframes glimmer {
+  from { clip-path: inset(0 100% 0 0); }
+  50% { clip-path: inset(0 0 0 0); }
+  to { clip-path: inset(0 0 0 100%); }
+}
+
 .profile {
   min-height: 100vh;
   display: grid;
@@ -19,7 +25,6 @@
   grid-auto-rows: auto;
   justify-items: center;
 }
-
 
 .profile__title {
   margin: 0 0 calc(123px - 13px);
@@ -96,30 +101,67 @@
   color: var(--color-notable);
 }
 
-.profile__submit {
-  display: block;
-  border: none;
-  margin: calc(220px - 16px - 13px) auto 16px;
-  padding: 0;
-  background: transparent;
-  color: var(--color-text);
+.profile__server-response {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  font-weight: 500px;
+  font-size: 14px;
+  line-height: 16px;
+  color: var(--color-elements);
   text-align: center;
+  min-height: calc(220px - 64px - 16px - 13px);
+}
+
+.profile__server-response.error {
+  color: var(--color-notable);
+}
+
+.profile__submit {
+  margin: 0 auto 16px;
+  color: var(--color-text);
 }
 
 .profile__submit:disabled {
   color: var(--color-dim);
 }
 
-.profile__submit, .profile__link {
+.profile__submit, .profile__logout {
+  display: block;
+  border: none;
+  padding: 0;
+  background: transparent;
+  text-align: center;
   font-weight: 400;
   font-size: 13px;
   line-height: 16px;
+  min-height: 16px;
 }
 
-.profile__link {
+.profile__logout {
+  margin: 0;
   color: var(--color-notable);
 }
 
+.profile__submit.making-request {
+  color: var(--color-elements);
+}
+
+.profile__submit.making-request::before {
+  display: none;
+}
+
+.profile__submit.making-request::after {
+  display: block;
+  content: 'Не переключайтесь!';
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: var(--color-submit);
+  min-height: 16px;
+  animation: glimmer .5s infinite linear;
+}
 
 
 @media screen and (max-width: 1024px) {
@@ -131,8 +173,8 @@
     margin-bottom: calc(96px - 13px);
   }
 
-  .profile__submit {
-    margin-top: calc(210px - 16px - 13px);
+  .profile__server-response {
+    min-height: calc(210px - 64px - 16px - 13px);
   }
 }
 
@@ -161,11 +203,12 @@
     height: 100%;
   }
 
-  .profile__submit {
-    margin-top: auto;
+  .profile__server-response {
+    margin: auto 0;
+    min-height: 16px;
   }
 
-  .profile__submit, .profile__link {
+  .profile__submit, .profile__logout {
     font-size: 12px;
     line-height: 15px;
   }
@@ -185,7 +228,8 @@
     margin: 10px 0 20px;
   }
 
-  .profile__submit {
-    margin-top: auto;
+  .profile__server-response {
+    margin: auto 0;
+    min-height: 16px;
   }
 }

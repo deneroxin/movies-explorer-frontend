@@ -1,53 +1,71 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import Header from '../Header/Header';
-import { CurrentUserContext } from '../../contexts/contexts';
+import { CurrentUserContext, GlobalContext } from '../../contexts/contexts';
 import { profileValidationRules } from '../../utils/validation/signValidation';
 import { useValidation } from '../../utils/customHooks';
 import './Profile.css';
 
 export default function Profile() {
 
-  const currentUser = React.useContext(CurrentUserContext);
+  const { name, email } = React.useContext(CurrentUserContext);
+  const { isMakingRequest, handleUpdateUserInfo, handleLogout } = React.useContext(GlobalContext);
+  const [response, setResponse] = React.useState({ message: '' });
+
   const [ { inputsContent, showError, errorText, onChange, onBlur },
-    isFormInvalid ] = useValidation(profileValidationRules);
+    isFormInvalid, setContent ] = useValidation(profileValidationRules);
+
+  React.useEffect(() => setContent({ name, email }), []);
 
   function handleFormSubmit(evt) {
     evt.preventDefault();
-
+    handleUpdateUserInfo(inputsContent, setResponse);
   }
+
+  const isRequestBlocked = inputsContent.name === name && inputsContent.email === email;
+
+  const error = (field) => showError[field] && errorText[field] ? ' error' : '';
+  const serverError = response.type === 'error' ? ' error' : '';
+  const makingRequest = isMakingRequest ? ' making-request' : '';
 
   return (
     <div className="profile">
       <Header />
       <main className="profile__main">
         <section className="profile__container">
-          <h1 className="profile__title">{`Привет, ${currentUser.name}!`}</h1>
+          <h1 className="profile__title">{`Привет, ${name}!`}</h1>
           <form className="profile__form" name="profile" noValidate={true} onSubmit={handleFormSubmit}>
-            <span className="profile__error">{showError.name && errorText.name}</span>
-            <div className={`profile__field${showError.name && errorText.name ? ' error' : ''}`}>
+            <span className="profile__error">
+              {showError.name && errorText.name}
+            </span>
+            <div className={`profile__field${error('name')}`}>
               <label className="profile__label" htmlFor="name">Имя</label>
               <input type="text" className="profile__input"
                 name="name" id="name" maxLength="30"
                 value={inputsContent.name} {...{onChange, onBlur}} />
             </div>
-            <div className={`profile__field${showError.email && errorText.email ? ' error' : ''}`}>
+            <div className={`profile__field${error('email')}`}>
               <label className="profile__label" htmlFor="email">E-mail</label>
               <input type="email" className="profile__input"
                 name="email" id="email"
                 value={inputsContent.email} {...{onChange, onBlur}} />
             </div>
-            <span className="profile__error">{showError.email && errorText.email}</span>
-            <button type="submit" className="profile__submit interactive"
-              disabled={isFormInvalid}
+            <span className="profile__error">
+              {showError.email && errorText.email}
+            </span>
+            <span className={`profile__server-response${serverError}`}>
+              {response.message}
+            </span>
+            <button type="submit"
+              className={`profile__submit interactive${makingRequest}`}
+              disabled={isFormInvalid || isRequestBlocked || isMakingRequest}
             >
-              Редактировать
+              {!isMakingRequest ? 'Редактировать' : 'Не переключайтесь!'}
             </button>
           </form>
           <nav className="profile__nav">
-            <Link className="profile__link interactive-type-2" to="/">
+            <button className="profile__logout interactive-type-2" onClick={handleLogout}>
               Выйти из аккаунта
-            </Link>
+            </button>
           </nav>
         </section>
       </main>
