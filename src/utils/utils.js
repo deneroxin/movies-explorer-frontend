@@ -1,3 +1,5 @@
+import { codes } from '../constants/constants';
+
 export function setLocalItem(name, object) {
   localStorage.setItem(name, JSON.stringify(object));
 }
@@ -13,7 +15,8 @@ export function setLike(movies, id, status) {
 }
 
 export function getErrorMessage(err) {
-  return (err.statusCode === 400 && err.validation && err.validation.body && err.validation.body.message)
+  return (err.statusCode === codes.BAD_REQUEST
+    && err.validation && err.validation.body && err.validation.body.message)
     ? `${err.message}: ${err.validation.body.message}`
     : err.message;
 }

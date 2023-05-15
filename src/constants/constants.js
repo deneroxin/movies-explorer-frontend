@@ -5,6 +5,7 @@ export const addr = {
 };
 
 export const codes = {
+  BAD_REQUEST: 400,
   INTERNAL_SERVER_ERROR: 500,
 };
 

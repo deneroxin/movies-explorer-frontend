@@ -18,10 +18,10 @@ export default function Profile() {
 
   function handleFormSubmit(evt) {
     evt.preventDefault();
-    if (!isMakingRequest && (inputsContent.name !== name || inputsContent.email !== email)) {
-      handleUpdateUserInfo(inputsContent, setResponse);
-    }
+    handleUpdateUserInfo(inputsContent, setResponse);
   }
+
+  const isRequestBlocked = inputsContent.name === name && inputsContent.email === email;
 
   const error = (field) => showError[field] && errorText[field] ? ' error' : '';
   const serverError = response.type === 'error' ? ' error' : '';
@@ -57,7 +57,7 @@ export default function Profile() {
             </span>
             <button type="submit"
               className={`profile__submit interactive${makingRequest}`}
-              disabled={isFormInvalid}
+              disabled={isFormInvalid || isRequestBlocked || isMakingRequest}
             >
               {!isMakingRequest ? 'Редактировать' : 'Не переключайтесь!'}
             </button>
